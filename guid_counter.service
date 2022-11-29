@@ -1,0 +1,16 @@
+[Unit]
+Description=GUID Counter the Mastodon robot
+After=network.target
+ 
+[Service]
+Type=simple
+ExecStart=python3 /home/pi/guid_counter_bot/guid_counter.py
+WorkingDirectory=/home/pi/guid_counter_bot
+User=pi
+Restart=on-failure
+SyslogIdentifier=guid_counter.txt
+RestartSec=5
+TimeoutStartSec=infinity
+ 
+[Install]
+WantedBy=multi-user.target
