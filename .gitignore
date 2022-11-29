@@ -132,6 +132,7 @@ dmypy.json
 
 # guid_counter
 .config
+guid.json
 .clientcred.secret
 .usercred.secret
 guid_counter.log
