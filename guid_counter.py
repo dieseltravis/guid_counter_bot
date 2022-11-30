@@ -47,7 +47,22 @@ def get_display() -> str:
 
 def increment():
 	global current
-	# TODO: loop through and add 1
+	digitLength = len(current)
+	last = digitLength - 1
+	# start at the right-most digit
+	indeces = range(last, -1, -1)
+	# increment smallest digit
+	current[last] += 1
+	carry = 0
+	for i in indeces:
+		# if 1 is carried, increment and reset carry
+		if carry == 1:
+			current[i] += 1
+			carry = 0
+		# if current digit is over, reset and carry the 1
+		if current[i] > 15:
+			current[i] = 0
+			carry = 1
 
 def save_progress():
   global current
