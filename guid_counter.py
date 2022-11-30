@@ -9,11 +9,13 @@ _client: Mastodon = None  # type: ignore
 
 # load values from json formatted .config file
 config = json.load(open(".config", 'r'))
-current = json.load(open("guid.json", 'r'))
+guidObject = json.load(open("guid.json", 'r'))
+current = guidObject["guid"]
 
 def create() -> Mastodon:
 	client: Mastodon
 	try:
+		logging.info("Creating client...")
 		client = Mastodon(
 				client_id = config["key"],
 				client_secret = config["secret"],
@@ -28,10 +30,8 @@ def create() -> Mastodon:
 
 def client_start():
 	global _client
-	logging.info("Starting client...")
 	if _client is None:
 		_client = create()
-	logging.info("Started client.")
 
 def get_display() -> str:
 	global current
@@ -47,6 +47,7 @@ def get_display() -> str:
 
 def increment():
 	global current
+	logging.info("before: %s", current)
 	digitLength = len(current)
 	last = digitLength - 1
 	# start at the right-most digit
@@ -63,17 +64,23 @@ def increment():
 		if current[i] > 15:
 			current[i] = 0
 			carry = 1
+	logging.info("after: %s", current)
 
 def save_progress():
+  global guidObject
   global current
+  guidObject["guid"] = current
   with open('guid.json', "w") as guid_file:
-    guid_file.write(json.dump(current))
+    guid_file.write(json.dumps(guidObject))
 
 def guid_count_post():
-	logging.info(datetime.now().isoformat())
 	# get display formatted guid
+	logging.info("formatting: %s", current)
 	toot_text = get_display()
-	logging.info(toot_text)
+	logging.info("formatted: %s", toot_text)
+
+	# make sure client exists
+	client_start()
 	_client.status_post(toot_text)
 	# increment guid
 	increment()
@@ -82,18 +89,21 @@ def guid_count_post():
 
 def scheduler_start():
 	logging.info("Starting scheduler")
-	schedule.every().day.at('12:00').do(guid_count_post)
+	schedule.every().day.at('21:16').do(guid_count_post)
 	# use listener to read user stream
 	while True:
 		schedule.run_pending()
 		time.sleep(1)
 
 def main():
-	logging.basicConfig(filename='guid_counter.log',level=logging.DEBUG)
-	logging.info(datetime.now().isoformat())
+	global current
+	logging.basicConfig(filename='guid_counter.log',
+                     	format='%(asctime)s %(message)s',
+											level=logging.DEBUG)
 	logging.info("GUIDs!")
-
-	client_start()
+	logging.info("initial: %s", current)
+	logging.info("formatted: %s", get_display())
+	logging.info("json: %s", json.dumps(current))
 	scheduler_start()
 
 if __name__ == "__main__":

@@ -11,9 +11,9 @@ echo -e "${INFO}systemctl stop guid_counter${NC}";
 sudo systemctl stop guid_counter
 echo "Updating guid_counter..."
 echo -e "${INFO}git fetch${NC}";
-sudo git fetch
+git fetch
 echo -e "${INFO}git pull${NC}";
-sudo git pull
+git pull
 echo "Starting up guid_counter..."
 echo -e "${INFO}systemctl start guid_counter${NC}";
 sudo systemctl start guid_counter

@@ -6,9 +6,9 @@ NC='\033[0m' # No Color
 echo "Installing python requirements..."
 echo -e "${INFO}pip install -r requirements.txt${NC}";
 pip install -r requirements.txt
-echo "Setting ownership..."
-echo -e "${INFO}chown pi:pi ~/guid_counter_bot/*.*${NC}";
-sudo chown pi:pi ~/guid_counter_bot/*.*
+#echo "Setting ownership..."
+#echo -e "${INFO}chown pi:pi ~/guid_counter_bot/*.*${NC}";
+#sudo chown pi:pi ~/guid_counter_bot/*.*
 echo "Installing systemd service..."
 echo -e "${INFO}cp ~/guid_counter_bot/guid_counter.service /lib/systemd/system/${NC}";
 sudo cp ~/guid_counter_bot/guid_counter.service /lib/systemd/system/
