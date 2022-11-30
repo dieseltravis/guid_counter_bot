@@ -89,7 +89,7 @@ def guid_count_post():
 
 def scheduler_start():
 	logging.info("Starting scheduler")
-	schedule.every().day.at('21:16').do(guid_count_post)
+	schedule.every().day.at('12:00').do(guid_count_post)
 	# use listener to read user stream
 	while True:
 		schedule.run_pending()
