@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from mastodon import Mastodon
-from datetime import date, datetime
 import json, logging, schedule, time
 
 _client: Mastodon = None  # type: ignore
