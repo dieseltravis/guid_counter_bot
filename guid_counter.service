@@ -4,9 +4,9 @@ After=network.target
  
 [Service]
 Type=simple
-ExecStart=python3 /home/pi/guid_counter_bot/guid_counter.py
-WorkingDirectory=/home/pi/guid_counter_bot
-User=pi
+ExecStart=python3 /home/travis/projects/guid_counter_bot/guid_counter.py
+WorkingDirectory=/home/travis/projects/guid_counter_bot
+User=travis
 Restart=on-failure
 SyslogIdentifier=guid_counter.txt
 RestartSec=5

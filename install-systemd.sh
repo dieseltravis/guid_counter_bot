@@ -7,11 +7,11 @@ echo "Installing python requirements..."
 echo -e "${INFO}pip install -r requirements.txt${NC}";
 pip install -r requirements.txt
 #echo "Setting ownership..."
-#echo -e "${INFO}chown pi:pi ~/guid_counter_bot/*.*${NC}";
-#sudo chown pi:pi ~/guid_counter_bot/*.*
+#echo -e "${INFO}chown travis:travis ~/projects/guid_counter_bot/*.*${NC}";
+#sudo chown travis:travis ~/projects/guid_counter_bot/*.*
 echo "Installing systemd service..."
-echo -e "${INFO}cp ~/guid_counter_bot/guid_counter.service /lib/systemd/system/${NC}";
-sudo cp ~/guid_counter_bot/guid_counter.service /lib/systemd/system/
+echo -e "${INFO}cp ~/projects/guid_counter_bot/guid_counter.service /lib/systemd/system/${NC}";
+sudo cp ~/projects/guid_counter_bot/guid_counter.service /lib/systemd/system/
 echo -e "${INFO}systemctl enable guid_counter${NC}";
 sudo systemctl enable guid_counter
 echo -e "${INFO}systemctl daemon-reload${NC}";
